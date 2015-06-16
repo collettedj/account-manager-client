@@ -1,0 +1,44 @@
+<button class="btn btn-success" {{action 'createApp'}} >Create App</button>
+
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th></th>
+			<th class="col-sm-4">Name</th>
+			<th class="col-sm-8">Description</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		{{#each model as |app|}}	
+		{{#app-row tagName="tr" app=app classNameBindings=":app-row app.isDirty:info" as |appRow| }}
+
+			<td>
+				{{input type="checkbox" checked=appRow.isEditing}}
+			</td>
+
+			{{#if appRow.isEditing}}
+				<td class="app-name">
+					{{input value=app.name class="form-control input-sm" }}
+				</td>
+				<td class="app-description">
+					{{textarea value=app.description class="form-control input-sm" }}
+				</td>
+				<td>
+					<button class="btn btn-success btn-xs" {{action 'saveApp' bubbles=false target=appRow}}>Save</button>
+					<button class="btn btn-danger btn-xs" {{action 'deleteApp' bubbles=false target=appRow}}>Delete</button>
+				</td>
+			{{else}}
+				<td class="app-name">{{app.name}}</td>
+				<td class="app-description">{{app.description}}</td>
+				<td>
+					{{#link-to 'app' app.id class="echo-link"}}view
+					{{/link-to}}		
+				</td>						
+			{{/if}}
+
+
+		{{/app-row}}
+		{{/each}}
+	</tbody>
+</table>

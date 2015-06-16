@@ -1,0 +1,13 @@
+<p>This is my login page</p>
+
+<label>User Name</label>
+{{input value=username class="form-control login-username"}}
+<label>Password</label>
+{{input type="password" value=password class="form-control login-password"}}
+<button type="button" class="btn btn-info login-btn" {{action 'login'}}>Login</button>
+
+{{#if hasErrors}}
+  <div class="alert alert-danger">
+      <p>{{authError}}</p>
+  </div>
+{{/if}}
